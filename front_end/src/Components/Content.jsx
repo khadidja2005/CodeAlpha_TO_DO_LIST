@@ -20,6 +20,8 @@ const Content = () => {
     timing: '',
     urgent: false,
   });
+  const[error , seterror] = useState('');
+  const [saved , setsaved] = useState('')
   const [listform , setlistform] = useState([])
     const handelchange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -44,6 +46,12 @@ const Content = () => {
       timing: '',
       urgent: false,
     });
+     seterror('');
+     setsaved('Task saved')
+    }
+    else {
+      setsaved('')
+      seterror('please fill the title')
     }
   };
 
@@ -63,7 +71,7 @@ const handelremove= (index)=> {
         <button className=' text-blue text-2xl font-medium p-3 mx-4 border-2 border-blue rounded-md cursor-pointer ' onClick={openPopUP}>+ Add new Task</button>
       </div>
       <div> {isOpen && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-xs shadow-md flex justify-center items-center backdrop-blur-xl bg-white/30 border-2 border-[#F446B9] m-auto rounded-md">
+        <div className=" fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-w-xs shadow-md flex justify-center items-center backdrop-blur bg-white/30 border-2 border-[#F446B9] m-auto rounded-md">
           <div className=" max-w-sm mx-6">
             <button onClick={closePopUp} className=' text-blue m-4 text-2xl'><IoMdClose /></button>
             <form className=' text-[#6F6F6F]' onSubmit={handleSubmit}>
@@ -79,6 +87,8 @@ const handelremove= (index)=> {
                 <input type="checkbox" name="urgent" checked= {formData.urgent} id="" onChange={handelchange} />
                 <p className='  m-2'>Urgent</p>
               </div>
+              {error && <p className=' text-red-500 text-center'>{error}</p>}
+              {saved && <p className=' text-green-500 text-center'>{saved}</p>}
               <div className='flex justify-end m-2'>
                 <button type='submit' className=' text-blue text-2xl font-medium py-2 px-4 mx-2 my-2  border-2 border-blue rounded-md cursor-pointer '>Save</button>
               </div>
